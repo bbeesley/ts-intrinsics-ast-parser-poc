@@ -1,0 +1,143 @@
+{
+  "name": "ast-parser",
+  "version": "0.0.0",
+  "description": "DAZN ast parser module",
+  "publishConfig": {
+    "@dazn:registry": "https://registry.npmjs.org/",
+    "access": "restricted"
+  },
+  "engines": {
+    "node": ">=12.13.0"
+  },
+  "scripts": {
+    "dependabump": "ncu -u && rm -rf package-lock.json node_modules | true && npm i",
+    "documentation": "documentation readme src/** --github --readme-file=./README.md --require-extension=ts --parse-extension=ts --babel=./babel.config.js --section=API",
+    "lint": "tsc --noEmit && eslint --ext '.ts' src/",
+    "pretest": "npm run lint",
+    "test": "jest --coverage --verbose --passWithNoTests",
+    "posttest": "npm run compile",
+    "prepare": "npm run compile",
+    "precompile": "rm -rf dist",
+    "release": "semantic-release",
+    "compile": "BABEL_ENV=production babel src --out-dir dist --source-maps --extensions \".ts\" --ignore \"**/*.test.ts\" && tsc --emitDeclarationOnly",
+    "commitlint": "commitlint --from main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getndazn/ast-parser.git"
+  },
+  "author": "Atlantis <atlantis@dazn.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/getndazn/ast-parser/issues"
+  },
+  "homepage": "https://github.com/getndazn/ast-parser#readme",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      "next",
+      "next-major",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "releaseRules": [
+            {
+              "type": "docs",
+              "release": "patch"
+            },
+            {
+              "type": "refactor",
+              "release": "patch"
+            },
+            {
+              "type": "chore",
+              "scope": "deps*",
+              "release": "patch",
+              "subject": "bump *dazn/*"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      "@semantic-release/github",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "CHANGELOG.md",
+            "README.md"
+          ]
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-stage-0": "^7.8.3",
+    "@babel/preset-typescript": "^7.13.0",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@dazn/eslint-plugin-atlantis-evo": "^1.26.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.2.1",
+    "@semantic-release/npm": "^7.1.1",
+    "@semantic-release/release-notes-generator": "^9.0.2",
+    "@types/jest": "^26.0.22",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "babel-jest": "^26.6.3",
+    "conventional-changelog-angular": "^5.0.12",
+    "cz-conventional-changelog": "^3.3.0",
+    "documentation": "^13.2.1",
+    "eslint": "^7.24.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "npm-check-updates": "^11.4.1",
+    "prettier": "^2.2.1",
+    "semantic-release": "^17.4.2",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "ts-json-schema-generator": "^0.90.0"
+  }
+}

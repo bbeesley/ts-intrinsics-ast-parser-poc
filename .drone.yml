@@ -1,0 +1,52 @@
+pipeline:
+  bootstrap:
+    image: node:12-buster
+    secrets: [jfrog_artifactory_token, npm_token]
+    commands:
+      - echo "//npm.daznplatform.com/:_authToken=$JFROG_ARTIFACTORY_TOKEN" >> .npmrc
+      - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+      - npm ci
+    when:
+      event: push
+  test-commitlint:
+    group: testing
+    image: node:12-buster
+    commands:
+      - git fetch --tags
+      - npx commitlint --from $(git describe --abbrev=0 --tags)
+    when:
+      event: push
+      branch:
+        exclude: main
+  test:
+    group: testing
+    image: node:12-buster
+    when:
+      event: push
+    commands:
+      - npm test
+  approve:
+    image: node:12-buster
+    secrets:
+      - source: github_atlantis_token
+        target: github_token
+    commands:
+      - cp .npmrc ~/
+      - npx @dazn/drone-dependabot-approver
+    when:
+      branch:
+        exclude: [main]
+  publish:
+    image: node:12-buster
+    secrets:
+      - source: github_atlantis_token
+        target: github_token
+      - source: npm_token
+        target: npm_token
+    when:
+      event: push
+      branch: main
+    commands:
+      - npm run compile
+      - npm run documentation
+      - npm run release

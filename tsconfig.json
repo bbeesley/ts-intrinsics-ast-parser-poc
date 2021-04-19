@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "lib": ["ESNext"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "target": "ES2018",
+    "outDir": "./dist/",
+    "preserveConstEnums": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/*.ts", "src/**/*.ts", "*.d.ts"],
+  "exclude": ["**/__mocks__/*", "src/**/*.test.*", "node_modules/*"]
+}

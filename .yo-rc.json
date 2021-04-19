@@ -1,0 +1,9 @@
+{
+  "@dazn/generator-discovery": {
+    "name": "ast-parser",
+    "repo": "https://github.com/getndazn/ast-parser",
+    "description": "DAZN ast parser module",
+    "webpack": false,
+    "install": true
+  }
+}

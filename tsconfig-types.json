@@ -1,0 +1,43 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "declaration": true,
+        "esModuleInterop": true,
+        "lib": [
+            "es6",
+            "es2017",
+            "ESNext"
+        ],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "outDir": "dist",
+        "sourceMap": true,
+        "target": "ESNext",
+        "paths": {
+            "*": [
+                "node_modules/*"
+            ]
+        },
+        "allowJs": true,
+        "inlineSources": true,
+        "preserveConstEnums": true,
+        "resolveJsonModule": true,
+        "strictNullChecks": false,
+    },
+    "include": [
+        "src/@types/*.ts",
+        "src/@types/*.ts",
+        "src/@types/**/.*.ts",
+        "src/@types/**/.*.ts",
+        "src/@types/*.js",
+        "src/@types/**/*.js",
+        "src/@types/.*.js",
+        "src/@types/**/.*.js",
+    ],
+    "exclude": [
+        "node_modules/*",
+        "src/*.test.*",
+        "src/**/*.test.*"
+    ]
+}
