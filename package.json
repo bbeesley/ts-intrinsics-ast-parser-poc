@@ -138,6 +138,6 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "ts-json-schema-generator": "^0.90.0"
+    "ts-json-schema-generator": "^0.93.0"
   }
 }
