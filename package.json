@@ -135,7 +135,7 @@
     "npm-check-updates": "^11.4.1",
     "prettier": "^2.2.1",
     "semantic-release": "^17.4.2",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.2"
   },
   "dependencies": {
     "ts-json-schema-generator": "^0.93.0"
